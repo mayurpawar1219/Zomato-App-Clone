@@ -1,0 +1,109 @@
+.navbar{
+  padding : 20px 0px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar .log{
+  width:150px;
+
+}
+
+.navbar-menu{
+  display:flex;
+  list-style: none;
+  gap: 20px;
+  color: #49557e;
+  font-size: 18px;
+}
+
+.navbar-right{
+  display:flex;
+  align-items: center;
+  gap: 40px;
+}
+
+/* From Uiverse.io by gharsh11032000 */ 
+.navbar .button {
+  position: relative;
+  width: 120px;
+  height: 40px;
+  background-color: #000;
+  display: flex;
+  align-items: center;
+  color: white;
+  flex-direction: column;
+  justify-content: center;
+  border: none;
+  padding: 12px;
+  gap: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  left: -4px;
+  top: -1px;
+  margin: auto;
+  width: 128px;
+  height: 48px;
+  border-radius: 10px;
+  background: linear-gradient(-45deg, #e81cff 0%, #40c9ff 100% );
+  z-index: -10;
+  pointer-events: none;
+  transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.button::after {
+  content: "";
+  z-index: -1;
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(-45deg, #fc00ff 0%, #00dbde 100% );
+  transform: translate3d(0, 0, 0) scale(0.95);
+  filter: blur(20px);
+}
+
+.button:hover::after {
+  filter: blur(30px);
+}
+
+.button:hover::before {
+  transform: rotate(-180deg);
+}
+
+.button:active::before {
+  scale: 0.7;
+}
+
+.navbar .active{
+  padding-bottom: 2px;
+  border-bottom: 2px solid #49557e;
+}
+
+.navbar li{
+  cursor: pointer;
+
+}
+
+.navbar-basket-icon {
+  position: relative; /* This ensures the dot is positioned relative to the icon */
+  display: inline-block; /* Makes sure the container wraps around the icon */
+}
+
+.dot {
+  position: absolute;
+  top: 0;  /* Align to the top */
+  right: 0; /* Align to the right */
+  width: 7px;
+  height: 7px;
+  background-color: tomato;
+  border-radius: 50%;
+  display: block;
+  transform: translate(50%, -50%); /* Adjust position */
+}
+
