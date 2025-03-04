@@ -3,8 +3,8 @@ import "./List.css";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const List = () => {
-  const url = "http://localhost:4000";
+const List = ({ url }) => {
+  //const url = "http://localhost:4000";
   const [list, setList] = useState([]);
 
   const fetchList = async () => {
@@ -22,8 +22,22 @@ const List = () => {
   };
 
   const removeFood = async (foodId) => {
-    console.log(foodId);
-  }
+    try {
+      const response = await axios.post(`${url}/api/food/remove`, {
+        id: foodId,
+      });
+
+      if (response.data.success) {
+        toast.success("Food removed successfully");
+        fetchList(); // Refresh the list after deletion
+      } else {
+        toast.error("Error removing food");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error("Server error");
+    }
+  };
 
   useEffect(() => {
     fetchList();
@@ -45,7 +59,7 @@ const List = () => {
             <img src={`${url}/uploads/${item.image}`} alt={item.name} />
             <p>{item.name}</p>
             <p>{item.category}</p>
-            <p>Rs.{item.price}</p>
+            <p>${item.price}</p>
             <p onClick={() => removeFood(item._id)} className="cursor">
               X
             </p>

@@ -2,6 +2,10 @@ import express from "express";
 import cors from "cors";
 import { connectDB } from "./config/db.js";
 import foodRouter from "./routes/foodRouter.js";
+import userRouter from "./routes/userRoute.js";
+import cartRouter from "./routes/cartRoute.js";
+import "dotenv/config.js"
+import orderRouter from "./routes/orderRoute.js";
 
 // App Config
 const app = express();
@@ -13,6 +17,9 @@ app.use(cors());
 
 // Serve static files from "uploads" directory
 app.use("/uploads", express.static("uploads"));
+app.use("/api/user",userRouter);
+app.use("/api/cart",cartRouter);
+app.use("/api/order",orderRouter);
 
 // Database Connection
 connectDB();

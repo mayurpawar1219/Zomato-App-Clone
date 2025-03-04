@@ -1,5 +1,11 @@
 import foodModel from "../models/foodModel.js";
-import fs from 'fs';
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+import mongoose from "mongoose";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Add food item
 const addFood = async (req, res) => {
@@ -15,7 +21,7 @@ const addFood = async (req, res) => {
       price: req.body.price,
       description: req.body.description,
       image: image_filename,
-      category: req.body.category
+      category: req.body.category,
     });
 
     await food.save();
@@ -40,10 +46,14 @@ const listFood = async (req, res) => {
 // Remove food item
 const removeFood = async (req, res) => {
   try {
-    const { id } = req.body;  // Get ID from request body
+    const { id } = req.body; // Get ID from request body
 
     if (!id) {
       return res.status(400).json({ success: false, message: "Food ID is required" });
+    }
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ success: false, message: "Invalid Food ID" });
     }
 
     // Find the food item by ID
@@ -55,7 +65,7 @@ const removeFood = async (req, res) => {
 
     // Remove the image file if it exists
     if (food.image) {
-      const imagePath = `uploads/${food.image}`;
+      const imagePath = path.join(__dirname, "../uploads/", food.image);
       fs.unlink(imagePath, (err) => {
         if (err && err.code !== "ENOENT") {
           console.error("Error deleting image:", err);
@@ -73,7 +83,4 @@ const removeFood = async (req, res) => {
   }
 };
 
-
-export { addFood, listFood ,removeFood};
-
-
+export { addFood, listFood, removeFood };
